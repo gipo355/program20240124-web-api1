@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Program20240124WebApi1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240124104632_add-animal")]
-    partial class addanimal
+    [Migration("20240124125146_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,15 +27,14 @@ namespace Program20240124WebApi1.Migrations
 
             modelBuilder.Entity("Models.Animal", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CountryId")
+                    b.Property<Guid?>("CountryId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -64,12 +63,11 @@ namespace Program20240124WebApi1.Migrations
 
             modelBuilder.Entity("Models.Country", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -107,9 +105,7 @@ namespace Program20240124WebApi1.Migrations
                 {
                     b.HasOne("Models.Country", "Country")
                         .WithMany("Animals")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
                 });
