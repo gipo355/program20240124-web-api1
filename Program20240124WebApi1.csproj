@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
-    <RootNamespace>ItsWdfs.Csharp._20240124.Program20240124WebApi1</RootNamespace>
+    <RootNamespace>Program20240124WebApi1</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
