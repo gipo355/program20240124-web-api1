@@ -9,7 +9,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>();
 
+// Middlewere
+// builder.Services.AddSession(options =>
+// {
+//   options.Cookie.Name = ".AdventureWorks.Session";
+//   options.IdleTimeout = TimeSpan.FromSeconds(10);
+//   options.Cookie.IsEssential = true;
+// });
+
 var app = builder.Build();
+
+// app.UseSession();
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

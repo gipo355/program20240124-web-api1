@@ -1,5 +1,6 @@
 namespace Controllers.Animals;
 
+using System.Text.Json;
 using Data;
 
 // TODO: hide some fields from the response
@@ -11,6 +12,14 @@ public static partial class AnimalsController
     try
     {
       var animals = db.Animals.ToList();
+
+      var cookies = context.Request.Cookies.ToList();
+      // var headers = context.Request.Headers.ToList();
+
+      Log.Logger.Information($"Cookies: {JsonSerializer.Serialize(cookies)}");
+      // Log.Logger.Information($"Cookies: {JsonSerializer.Serialize(headers)}");
+      // context.Response.Headers.ContentType = "application/json";
+      context.Response.Headers.SetCookie = "testCookie=testValue";
 
       await context.Response.WriteAsJsonAsync(new { status = "success", data = animals });
 
