@@ -1,5 +1,7 @@
 namespace Data;
 
+// TODO: how to make fields required, unique, other props on db?
+
 // using System.Collections.Generic;
 using Config;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +23,14 @@ public class AppDbContext : DbContext
 
     optionsBuilder.UseNpgsql(this.connectionString);
 
-  public DbSet<Post> Posts { get; set; }
-  public DbSet<Blog> Blogs { get; set; }
+  // protected override void OnModelCreating(ModelBuilder modelBuilder)
+  // {
+  //   // modelBuilder.Entity<Blog>().Property(e => e.BlogId).HasDefaultValueSql("now()");
+  //   // modelBuilder.Entity<Blog>().ComplexProperty
+  // }
+
+  // public DbSet<Post> Posts { get; set; }
+  // public DbSet<Blog> Blogs { get; set; }
   public DbSet<Country> Countries { get; set; }
   public DbSet<Animal> Animals { get; set; }
 }

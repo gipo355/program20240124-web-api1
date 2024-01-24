@@ -1,10 +1,39 @@
 namespace Controllers.Animals;
 
+using Data;
+using Models;
+
 public static partial class AnimalsController
 {
-  public static void DeleteOneAnimal(string id, HttpContext context)
+  public static async Task DeleteOneAnimal(Guid id, HttpContext context, AppDbContext db)
   {
-    Console.WriteLine(id);
-    context.Response.WriteAsync("Hello World!");
+    try
+    {
+      Console.WriteLine(id);
+
+      db.Animals.Remove(new Animal { Id = id });
+
+      await db.SaveChangesAsync();
+
+      await context.Response.WriteAsJsonAsync(
+        new { ok = true, message = "Animal deleted successfully!" }
+      );
+
+      return;
+
+      // context.Response.WriteAsync("Hello World!");
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine(e);
+
+      context.Response.StatusCode = 500;
+
+      await context.Response.WriteAsJsonAsync(
+        new { ok = false, message = "Something went wrong!" }
+      );
+
+      return;
+    }
   }
 }

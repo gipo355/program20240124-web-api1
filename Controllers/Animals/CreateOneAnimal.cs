@@ -4,6 +4,15 @@ using System.Text.Json;
 using Data;
 using Models;
 
+public record AnimalResponse
+{
+  public bool ok { get; set; }
+  public string message { get; set; }
+
+  // public Animal animal { get; set; }
+  public Guid? id { get; set; }
+}
+
 public static partial class AnimalsController
 {
   public static async Task<IResult> CreateOneAnimal(
@@ -37,7 +46,20 @@ public static partial class AnimalsController
 
       // await context.Response.WriteAsync("Hello World!");
       // await context.Response.WriteAsJsonAsync(body);
-      return Results.Created();
+      return Results.Json(
+        new AnimalResponse
+        {
+          ok = true,
+          message = "Animal created successfully!",
+          id = animal.Id
+          // animal = new Animal
+          // {
+          //   Id = animal.Id,
+          //   Name = animal.Name,
+          //   Country = new Country { Id = animal.Country?.Id, Name = animal.Country?.Name }
+          // },
+        }
+      );
     }
     catch (Exception ex)
     {
